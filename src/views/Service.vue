@@ -216,6 +216,14 @@ const expertInfo = {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.service-item:nth-child(even) .service-image {
+  order: 2;
+}
+
+.service-item:nth-child(even) .service-content {
+  order: 1;
+}
+
 .service-item.clickable {
   cursor: pointer;
 }
