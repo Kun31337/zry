@@ -5,6 +5,10 @@ import Service from "../views/Service.vue";
 import About from "@/views/about.vue";
 import DrXu from "@/views/about/DrXu.vue";
 import Profile from "../views/Profile.vue";
+import ProfileInfo from "../views/profile/Info.vue";
+import ProfileOrders from "../views/profile/Orders.vue";
+import ProfileFavorites from "../views/profile/Favorites.vue";
+import ProfileSettings from "../views/profile/Settings.vue";
 import StudyPlanning from "../views/service/StudyPlanning.vue";
 import CareerPlanning from "../views/service/CareerPlanning.vue";
 import PersonalityTest from "../views/service/PersonalityTest.vue";
@@ -93,6 +97,26 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/profile/info",
+    name: "ProfileInfo",
+    component: ProfileInfo,
+  },
+  {
+    path: "/profile/orders",
+    name: "ProfileOrders",
+    component: ProfileOrders,
+  },
+  {
+    path: "/profile/favorites",
+    name: "ProfileFavorites",
+    component: ProfileFavorites,
+  },
+  {
+    path: "/profile/settings",
+    name: "ProfileSettings",
+    component: ProfileSettings,
   },
 ];
 
