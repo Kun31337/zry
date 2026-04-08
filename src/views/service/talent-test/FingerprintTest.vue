@@ -127,24 +127,27 @@ const handleGetReport = () => {
 </script>
 
 <template>
-  <div class="page-container">
+  <div class="fingerprint-test-page">
+    <!-- 面包屑导航 -->
     <nav class="breadcrumb-nav">
-      <RouterLink to="/" class="breadcrumb-item">🏠 首页</RouterLink>
+      <RouterLink to="/" class="breadcrumb-item">首页</RouterLink>
       <span class="separator">/</span>
-      <RouterLink to="/service" class="breadcrumb-item">⚙️ 服务</RouterLink>
+      <RouterLink to="/service" class="breadcrumb-item">服务</RouterLink>
       <span class="separator">/</span>
-      <RouterLink to="/service/talent-test" class="breadcrumb-item"
-        >天赋测试</RouterLink
-      >
+      <RouterLink to="/service/talent-test" class="breadcrumb-item">天赋测试</RouterLink>
       <span class="separator">/</span>
       <span class="breadcrumb-current">指纹测试</span>
     </nav>
 
-    <h1 class="title">👆 指纹测试</h1>
-    <p class="description">点击图片中的 10 个手指，然后选择对应的指纹类型</p>
+    <!-- 页面头部 -->
+    <header class="page-header">
+      <h1 class="page-title">指纹测试</h1>
+      <p class="page-subtitle">点击图片中的 10 个手指，然后选择对应的指纹类型</p>
+    </header>
 
+    <!-- 指纹类型介绍 -->
     <section class="type-intro">
-      <h2 class="section-title">📖 5 种指纹类型</h2>
+      <h2 class="section-title">5 种指纹类型</h2>
       <div class="types-grid">
         <div
           v-for="type in fingerprintTypes"
@@ -163,13 +166,14 @@ const handleGetReport = () => {
       </div>
     </section>
 
+    <!-- 指纹选择区域 -->
     <section class="palm-diagram">
-      <h2 class="section-title">🖐️ 选择你的指纹</h2>
+      <h2 class="section-title">选择你的指纹</h2>
       <div class="diagram-container">
         <div class="hands-wrapper">
           <!-- 左手 -->
           <div class="hand-container">
-            <h4 class="hand-label">✋ 左手</h4>
+            <h4 class="hand-label">左手</h4>
             <div class="palm-image-wrapper">
               <img
                 src="/src/assets/images/left hand.png"
@@ -205,7 +209,7 @@ const handleGetReport = () => {
 
           <!-- 右手 -->
           <div class="hand-container">
-            <h4 class="hand-label">🖐️ 右手</h4>
+            <h4 class="hand-label">右手</h4>
             <div class="palm-image-wrapper">
               <img
                 src="/src/assets/images/right hand.png"
@@ -245,13 +249,14 @@ const handleGetReport = () => {
             class="progress-fill"
             :style="{ width: progressPercent + '%' }"
           ></div>
-          <span class="progress-text"
-            >{{ completedCount }} / 10 个手指已选择</span
-          >
+          <span class="progress-text">
+            {{ completedCount }} / 10 个手指已选择
+          </span>
         </div>
       </div>
     </section>
 
+    <!-- 报告获取区域 -->
     <section class="report-section" :class="{ enabled: allSelected }">
       <button
         class="report-btn"
@@ -259,7 +264,6 @@ const handleGetReport = () => {
         @click="handleGetReport"
         :disabled="!allSelected"
       >
-        <span class="btn-icon">📄</span>
         <span class="btn-text">获取测试报告</span>
       </button>
       <p v-if="!allSelected" class="hint-text">
@@ -267,6 +271,7 @@ const handleGetReport = () => {
       </p>
     </section>
 
+    <!-- 指纹类型选择模态框 -->
     <div
       v-if="selectedFingerId"
       class="modal-overlay"
@@ -302,14 +307,15 @@ const handleGetReport = () => {
 </template>
 
 <style scoped>
-.page-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 80px 20px 40px;
-  background: #fafafa;
+.fingerprint-test-page {
   min-height: 100vh;
+  background: #ffffff;
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* 面包屑导航 - 统一StudyPlanning风格 */
 .breadcrumb-nav {
   display: flex;
   align-items: center;
@@ -322,35 +328,46 @@ const handleGetReport = () => {
   color: #666;
   font-size: 14px;
   text-decoration: none;
+  transition: color 0.3s;
 }
 .breadcrumb-item:hover {
-  color: #42b883;
+  color: #1a1a1a;
 }
 .separator {
   color: #ccc;
   font-size: 14px;
 }
 .breadcrumb-current {
-  color: #42b883;
+  color: #1a1a1a;
   font-weight: 600;
+  font-size: 14px;
 }
 
-.title {
-  font-size: 32px;
-  color: #35495e;
-  margin-bottom: 15px;
+/* 页面头部 - 统一StudyPlanning风格 */
+.page-header {
   text-align: center;
+  margin-bottom: 60px;
 }
-.description {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 50px;
-  text-align: center;
+.page-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.page-subtitle {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
+/* 通用区块标题 */
 .section-title {
   font-size: 24px;
-  color: #35495e;
+  font-weight: 700;
+  color: #1a1a1a;
   margin-bottom: 25px;
   text-align: center;
   position: relative;
@@ -364,29 +381,39 @@ const handleGetReport = () => {
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #42b883, #35495e);
+  background: #1a1a1a;
   border-radius: 2px;
 }
 
+/* 指纹类型介绍 */
 .type-intro {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 .types-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .type-card {
-  background: white;
+  background: #fafafa;
   border-radius: 12px;
   padding: 15px 10px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.type-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
 }
 .type-card h3 {
   font-size: 18px;
   color: #333;
   margin-bottom: 8px;
+  font-weight: 600;
 }
 .type-card p {
   color: #666;
@@ -400,14 +427,17 @@ const handleGetReport = () => {
   border-radius: 6px;
 }
 
+/* 指纹选择区域 */
 .palm-diagram {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 .diagram-container {
-  background: white;
+  background: #fafafa;
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e8e8e8;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .hands-wrapper {
   display: flex;
@@ -424,7 +454,7 @@ const handleGetReport = () => {
 }
 .hand-label {
   font-size: 18px;
-  color: #35495e;
+  color: #1a1a1a;
   margin-bottom: 15px;
   font-weight: 600;
   text-align: center;
@@ -440,6 +470,7 @@ const handleGetReport = () => {
   background: #f9f9f9;
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid #e8e8e8;
 }
 .palm-hand {
   height: 100%;
@@ -469,14 +500,14 @@ const handleGetReport = () => {
 .pointer-dot {
   width: 20px;
   height: 20px;
-  background: rgba(66, 184, 131, 0.8);
+  background: #1a1a1a;
   border: 3px solid white;
   border-radius: 50%;
   transition: all 0.3s;
 }
 .finger-pointer:hover .pointer-dot {
   transform: scale(1.3);
-  box-shadow: 0 0 15px rgba(66, 184, 131, 0.6);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 .selected-indicator {
   position: absolute;
@@ -502,23 +533,19 @@ const handleGetReport = () => {
   }
 }
 
-@media (max-width: 900px) {
-  .types-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
+/* 进度条 */
 .progress-bar {
   position: relative;
   height: 30px;
-  background: #e8f5e9;
+  background: #fafafa;
   border-radius: 15px;
   overflow: hidden;
   margin-top: 20px;
+  border: 1px solid #e8e8e8;
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #42b883, #35495e);
+  background: #1a1a1a;
   transition: width 0.5s ease-out;
 }
 .progress-text {
@@ -526,17 +553,20 @@ const handleGetReport = () => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: #35495e;
+  color: #1a1a1a;
   font-size: 14px;
   font-weight: 600;
   z-index: 2;
 }
 
+/* 报告区域 */
 .report-section {
   text-align: center;
   padding: 30px;
   opacity: 0.6;
   pointer-events: none;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .report-section.enabled {
   opacity: 1;
@@ -547,7 +577,7 @@ const handleGetReport = () => {
   align-items: center;
   gap: 12px;
   padding: 16px 48px;
-  background: linear-gradient(90deg, #42b883, #35495e);
+  background: #1a1a1a;
   color: white;
   border: none;
   border-radius: 30px;
@@ -558,6 +588,7 @@ const handleGetReport = () => {
 }
 .report-btn:hover {
   transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 .report-btn.ready {
   animation: pulse 2s infinite;
@@ -565,10 +596,10 @@ const handleGetReport = () => {
 @keyframes pulse {
   0%,
   100% {
-    box-shadow: 0 8px 24px rgba(66, 184, 131, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
   50% {
-    box-shadow: 0 12px 32px rgba(66, 184, 131, 0.5);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 }
 .hint-text {
@@ -577,6 +608,7 @@ const handleGetReport = () => {
   font-size: 14px;
 }
 
+/* 模态框 */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -595,12 +627,14 @@ const handleGetReport = () => {
   padding: 30px;
   max-width: 500px;
   width: 90%;
+  border: 1px solid #e8e8e8;
 }
 .modal-title {
   font-size: 22px;
-  color: #35495e;
+  color: #1a1a1a;
   margin-bottom: 25px;
   text-align: center;
+  font-weight: 600;
 }
 .type-selector-grid {
   display: grid;
@@ -616,14 +650,15 @@ const handleGetReport = () => {
   border-radius: 12px;
   background: white;
   cursor: pointer;
+  transition: all 0.3s;
 }
 .type-selector-btn:hover {
-  border-color: #42b883;
-  background: #f5fdf9;
+  border-color: #1a1a1a;
+  background: #fafafa;
 }
 .type-selector-btn.selected {
-  border-color: #42b883;
-  background: linear-gradient(135deg, #42b883, #35495e);
+  border-color: #1a1a1a;
+  background: #1a1a1a;
   color: white;
 }
 .selector-image {
@@ -637,5 +672,28 @@ const handleGetReport = () => {
 .selector-label {
   font-size: 14px;
   font-weight: 600;
+}
+
+/* 响应式适配 */
+@media (max-width: 900px) {
+  .types-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .page-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fingerprint-test-page {
+    padding: 60px 24px;
+  }
+  .hands-wrapper {
+    gap: 20px;
+  }
+  .hand-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }
 </style>
