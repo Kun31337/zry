@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const isLoggedIn = ref(false)
 
 // 模拟用户资料数据
 const userInfo = {
@@ -13,71 +15,95 @@ const userInfo = {
   position: '产品经理',
   joinDate: '2024-01-15'
 }
+
+onMounted(() => {
+  // 检查登录状态（模拟）
+  const loggedIn = localStorage.getItem('isLoggedIn')
+  isLoggedIn.value = loggedIn === 'true'
+})
 </script>
 
 <template>
   <div class="profile-sub-page">
-    <!-- 顶部标题区域 -->
-    <header class="hero-section">
-      <div class="hero-content">
-        <nav class="breadcrumb-nav">
-          <span class="breadcrumb-item" @click="router.push('/')">首页</span>
-          <span class="separator">/</span>
-          <span class="breadcrumb-item" @click="router.push('/profile')">个人中心</span>
-          <span class="separator">/</span>
-          <span class="breadcrumb-current">我的资料</span>
-        </nav>
-        
-        <h1 class="hero-title">我的资料</h1>
-        <p class="hero-subtitle">查看和编辑您的个人信息</p>
+    <!-- 未登录提示 -->
+    <div v-if="!isLoggedIn" class="login-required">
+      <div class="login-prompt">
+        <div class="prompt-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+          </svg>
+        </div>
+        <h2 class="prompt-title">请先登录</h2>
+        <p class="prompt-text">查看我的资料需要登录账号</p>
+        <button class="btn btn-primary" @click="router.push('/profile/login')">立即登录</button>
       </div>
-    </header>
+    </div>
 
-    <!-- 内容区域 -->
-    <section class="content-section">
-      <div class="container">
-        <div class="info-card">
-          <div class="info-header">
-            <h2 class="info-title">基本信息</h2>
-          </div>
-          <div class="info-body">
-            <div class="info-row">
-              <span class="info-label">姓名</span>
-              <span class="info-value">{{ userInfo.name }}</span>
+    <!-- 已登录内容 -->
+    <template v-else>
+      <!-- 顶部标题区域 -->
+      <header class="hero-section">
+        <div class="hero-content">
+          <nav class="breadcrumb-nav">
+            <span class="breadcrumb-item" @click="router.push('/')">首页</span>
+            <span class="separator">/</span>
+            <span class="breadcrumb-item" @click="router.push('/profile')">个人中心</span>
+            <span class="separator">/</span>
+            <span class="breadcrumb-current">我的资料</span>
+          </nav>
+          
+          <h1 class="hero-title">我的资料</h1>
+          <p class="hero-subtitle">查看和编辑您的个人信息</p>
+        </div>
+      </header>
+
+      <!-- 内容区域 -->
+      <section class="content-section">
+        <div class="container">
+          <div class="info-card">
+            <div class="info-header">
+              <h2 class="info-title">基本信息</h2>
             </div>
-            <div class="info-row">
-              <span class="info-label">邮箱</span>
-              <span class="info-value">{{ userInfo.email }}</span>
+            <div class="info-body">
+              <div class="info-row">
+                <span class="info-label">姓名</span>
+                <span class="info-value">{{ userInfo.name }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">邮箱</span>
+                <span class="info-value">{{ userInfo.email }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">手机号</span>
+                <span class="info-value">{{ userInfo.phone }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">部门</span>
+                <span class="info-value">{{ userInfo.department }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">职位</span>
+                <span class="info-value">{{ userInfo.position }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">入职时间</span>
+                <span class="info-value">{{ userInfo.joinDate }}</span>
+              </div>
             </div>
-            <div class="info-row">
-              <span class="info-label">手机号</span>
-              <span class="info-value">{{ userInfo.phone }}</span>
+            <div class="info-footer">
+              <button class="btn btn-secondary">编辑资料</button>
             </div>
-            <div class="info-row">
-              <span class="info-label">部门</span>
-              <span class="info-value">{{ userInfo.department }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">职位</span>
-              <span class="info-value">{{ userInfo.position }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">入职时间</span>
-              <span class="info-value">{{ userInfo.joinDate }}</span>
-            </div>
-          </div>
-          <div class="info-footer">
-            <button class="btn btn-secondary">编辑资料</button>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 底部区域 -->
-    <footer class="profile-footer">
-      <p class="footer-text">如有账号相关问题，请联系客服团队获取帮助</p>
-      <button class="btn btn-primary" @click="router.push('/contact')">联系客服</button>
-    </footer>
+      <!-- 底部区域 -->
+      <footer class="profile-footer">
+        <p class="footer-text">如有账号相关问题，请联系客服团队获取帮助</p>
+        <button class="btn btn-primary" @click="router.push('/contact')">联系客服</button>
+      </footer>
+    </template>
   </div>
 </template>
 
@@ -85,6 +111,45 @@ const userInfo = {
 .profile-sub-page {
   min-height: 100vh;
   background: #fafafa;
+}
+
+/* 未登录提示 */
+.login-required {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-prompt {
+  text-align: center;
+  max-width: 400px;
+}
+
+.prompt-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  color: #666666;
+  margin-bottom: 24px;
+}
+
+.prompt-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.prompt-text {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 32px;
 }
 
 /* 顶部区域 */

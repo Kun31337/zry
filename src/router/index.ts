@@ -7,8 +7,9 @@ import DrXu from "@/views/about/DrXu.vue";
 import Profile from "../views/Profile.vue";
 import ProfileInfo from "../views/profile/Info.vue";
 import ProfileOrders from "../views/profile/Orders.vue";
-import ProfileFavorites from "../views/profile/Favorites.vue";
 import ProfileSettings from "../views/profile/Settings.vue";
+import ProfileLogin from "../views/profile/Login.vue";
+import ProfileRegister from "../views/profile/Register.vue";
 import StudyPlanning from "../views/service/StudyPlanning.vue";
 import CareerPlanning from "../views/service/CareerPlanning.vue";
 import PersonalityTest from "../views/service/PersonalityTest.vue";
@@ -109,14 +110,19 @@ const routes = [
     component: ProfileOrders,
   },
   {
-    path: "/profile/favorites",
-    name: "ProfileFavorites",
-    component: ProfileFavorites,
-  },
-  {
     path: "/profile/settings",
     name: "ProfileSettings",
     component: ProfileSettings,
+  },
+  {
+    path: "/profile/login",
+    name: "ProfileLogin",
+    component: ProfileLogin,
+  },
+  {
+    path: "/profile/register",
+    name: "ProfileRegister",
+    component: ProfileRegister,
   },
 ];
 

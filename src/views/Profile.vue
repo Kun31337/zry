@@ -19,15 +19,21 @@ const services = [
   },
   {
     id: 3,
-    name: '收藏夹',
-    description: '收藏的测评和服务',
-    path: '/profile/favorites'
-  },
-  {
-    id: 4,
     name: '设置',
     description: '账号和隐私设置',
     path: '/profile/settings'
+  },
+  {
+    id: 4,
+    name: '登录',
+    description: '登录您的账号',
+    path: '/profile/login'
+  },
+  {
+    id: 5,
+    name: '注册',
+    description: '创建新账号',
+    path: '/profile/register'
   }
 ]
 </script>
