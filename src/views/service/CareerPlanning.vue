@@ -12,52 +12,55 @@ const tests = [
     id: 1,
     name: '霍兰德职业兴趣测试',
     subtitle: '探索你的职业兴趣类型',
-    icon: '🎯',
     path: '/service/career-planning/holland-test'
   },
   {
     id: 2,
     name: 'MBTI 职业性格测试',
     subtitle: '了解你的性格特征与职业匹配',
-    icon: '📋',
     path: '/service/career-planning/mbti-test'
   }
 ]
 </script>
 
 <template>
-  <div class="page-container">
+  <div class="career-planning-page">
     <!-- 面包屑导航 -->
     <nav class="breadcrumb-nav">
-      <RouterLink to="/" class="breadcrumb-item">🏠 首页</RouterLink>
+      <RouterLink to="/" class="breadcrumb-item">首页</RouterLink>
       <span class="separator">/</span>
-      <RouterLink to="/service" class="breadcrumb-item">⚙️ 服务</RouterLink>
+      <RouterLink to="/service" class="breadcrumb-item">服务</RouterLink>
       <span class="separator">/</span>
       <span class="breadcrumb-current">职业规划</span>
     </nav>
     
-    <h1 class="title">🎯 职业规划</h1>
-    <p class="description">选择职业测评工具，了解自己适合的职业方向</p>
+    <!-- 页面头部 -->
+    <header class="page-header">
+      <h1 class="page-title">职业规划</h1>
+      <p class="page-subtitle">选择职业测评工具，了解自己适合的职业方向</p>
+    </header>
 
-    <div class="tests-grid">
+    <!-- 内容区域 -->
+    <section class="tests-grid">
       <RouterLink 
         v-for="test in tests" 
         :key="test.id"
         :to="test.path"
         class="test-card"
       >
-        <div class="icon">{{ test.icon }}</div>
-        <h3>{{ test.name }}</h3>
-        <p>{{ test.subtitle }}</p>
+        <div class="test-number">{{ String(test.id).padStart(2, '0') }}</div>
+        <h3 class="test-title">{{ test.name }}</h3>
+        <p class="test-subtitle">{{ test.subtitle }}</p>
       </RouterLink>
-    </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
-.page-container {
-  text-align: center;
-  padding: 90px 20px;
+.career-planning-page {
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 80px 24px;
 }
 
 /* 面包屑导航 */
@@ -77,7 +80,7 @@ const tests = [
 }
 
 .breadcrumb-item:hover {
-  color: #42b883;
+  color: #1a1a1a;
 }
 
 .separator {
@@ -86,60 +89,100 @@ const tests = [
 }
 
 .breadcrumb-current {
-  color: #42b883;
+  color: #1a1a1a;
   font-weight: 600;
   font-size: 14px;
 }
 
-.title {
-  font-size: 32px;
-  color: #35495e;
-  margin-bottom: 15px;
+/* 页面头部 */
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
-.description {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 50px;
+.page-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
 }
 
-.tests-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 800px;
+.page-subtitle {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+  max-width: 700px;
   margin: 0 auto;
 }
 
+/* 内容网格 */
+.tests-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 卡片样式 */
 .test-card {
-  background: #fff;
+  background: #fafafa;
   border-radius: 12px;
-  padding: 30px 20px;
+  padding: 40px 30px;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .test-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
 }
 
-.icon {
-  font-size: 48px;
-  margin-bottom: 15px;
-}
-
-h3 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-p {
-  color: #999;
+.test-number {
   font-size: 14px;
+  font-weight: 600;
+  color: #999999;
+}
+
+.test-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.test-subtitle {
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .career-planning-page {
+    padding: 60px 24px;
+  }
+
+  .page-title {
+    font-size: 32px;
+  }
+
+  .tests-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .test-card {
+    padding: 30px 20px;
+  }
 }
 </style>
